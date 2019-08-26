@@ -1,5 +1,6 @@
 package a1;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class A1Adept {
@@ -50,7 +51,7 @@ public class A1Adept {
 	 * Preconditions: Must provide 3 input values which are integers
 	 */
 	static void print(String firstName, String lastName, double totalCost) {
-		answer += "\n" + customerName(firstName, lastName) + ":  " + totalCost;
+		answer += "\n" + customerName(firstName, lastName) + ":" + String.format(java.util.Locale.US,"%.2f", totalCost);
 	}
 	/* customerName 
 	 * Prints the customers name with the first name 
