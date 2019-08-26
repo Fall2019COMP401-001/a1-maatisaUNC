@@ -1,73 +1,100 @@
 package a1;
 
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+
 
 public class A1Adept {
 	
-	public static String answer = "";
-
+	public static ArrayList<String> food = new ArrayList<>();
+	public static ArrayList<String> cost = new ArrayList<>();
+	public static ArrayList<String> customerName = new ArrayList<>();
+	public static ArrayList<String> customerCost = new ArrayList<>();
+	public static ArrayList<String> tempCustomerInfo = new ArrayList<>();
+	
 	public static void main(String[] args) {
 		
 		Scanner scan = new Scanner(System.in);
 		
-		// An integer indicating the total number of customers
-		int totalCustomers = scan.nextInt();
+		// An integer indicating the total number of items
+		int total_Items = scan.nextInt();
 		
-		// Cycles through each customer 
-		for (int i = 0; i < totalCustomers; i++) {
-			
-			double totalCost = 0;
-			
+		// Cycles through each item 
+		for (int i = 0; i < total_Items; i++) {
+			String nameOfItem = scan.next();
+			double theCostOfItem = scan.nextDouble();
+			// Adds the item to a array list to be called later
+			food.add(nameOfItem);
+			cost.add(String.valueOf(theCostOfItem));
+		}
+		double[] theCosts = new double[cost.size()];
+		// Copies array list of costs into fixed size array
+		for (int i = 0; i < cost.size(); i++) {
+			theCosts[i] = Double.valueOf(cost.get(i));
+		}
+		
+		// An integer indicating the number of customers
+		int total_Customers = scan.nextInt();
+		for (int i = 0; i < total_Customers; i++) {
 			// Gets the first and last name
 			String firstName = scan.next();
 			String lastName  = scan.next();
-			
-			// Appends the number of items to the name 
+			// Gets the number of items that customer has
 			int items = scan.nextInt();
-			
-			// Cycles through depending on number of items
-			for (int numOfItems = 0; numOfItems < items; numOfItems++) {
-				int theNumOfItems = scan.nextInt();
-				
-				String nameOfItem = scan.next();
-				double theCostOfItem = scan.nextDouble();
-				totalCost += theNumOfItems * theCostOfItem; 
+			double theFinalCost = 0;
+			// Loops through the number of items
+			for (int j = 0; j < items; j++) {
+				int howMany = scan.nextInt();
+				String theFood = scan.next();
+				// Gets the total cost for that customer
+				for (int k = 0; k < food.size(); k++) {
+					if (theFood.contentEquals(food.get(k))) {
+						theFinalCost += howMany * theCosts[k];
+					}
+				}
 			}
-			print(firstName, lastName, totalCost);
+			// Adds name and total cost to array lists
+			customerName.add(firstName + " " + lastName);
+			customerCost.add(String.valueOf(theFinalCost));
 		}
-		// Prints out the names along with their total cost
-		System.out.println(answer);
+		// Copies cost into an array
+		double[] thePrice = new double[customerCost.size()];
+		for (int i = 0; i < thePrice.length; i++) {
+			thePrice[i] = Double.valueOf(customerCost.get(i));
+		}
+		// Finds the biggest element in array and smallest
+		Arrays.sort(thePrice);
+		double smallest = thePrice[0];
+		double largest  = thePrice[customerCost.size() - 1];
+		// Variables to hold the index
+		int smallestHolder = 0;
+		int largestHolder  = 0;
+		// Finds the index of the largest and smallest values
+		for (int i = 0; i < thePrice.length; i++) {
+			if (smallest == Double.valueOf(customerCost.get(i))) {
+				smallestHolder = i;
+			}
+			if (largest == Double.valueOf(customerCost.get(i))) {
+				largestHolder = i;
+			}
+		}
+		// Finds the average of the cost
+		double average = 0;
+		for (int i = 0; i < thePrice.length; i++) {
+			average += thePrice[i];
+		}
+		average = average / thePrice.length;
+		System.out.println("\nBiggest: " + customerName.get(largestHolder) + " (" + String.format(java.util.Locale.US,"%.2f", largest) + ")");
+		System.out.println("Smallest: " + customerName.get(smallestHolder) + " (" + String.format(java.util.Locale.US,"%.2f", smallest) + ")");
+		System.out.println("Average: " + String.format(java.util.Locale.US,"%.2f", average));
+		
 		// Closes scanner 
 		scan.close();
+		
 	}
-	/* totalCost 
-	 * Finds the total cost of a customers cart
-	 *
-	 * Input: Number of each type of food
-	 * 
-	 * Output: Double value of the total cost
-	 * 
-	 * Preconditions: Must provide 3 input values which are integers
-	 */
-	static void print(String firstName, String lastName, double totalCost) {
-		answer += "\n" + customerName(firstName, lastName) + ":" + String.format(java.util.Locale.US,"%.2f", totalCost);
-	}
-	/* customerName 
-	 * Prints the customers name with the first name 
-	 * represented with one initial 
-	 *
-	 * Input: First and Last name
-	 * 
-	 * Output: First initial with last name
-	 * 
-	 * Preconditions: Must provide the first name and last name 
-	 */
-	static String customerName(String firstName, String lastName) {
-		return String.valueOf(firstName.charAt(0)).toUpperCase() + ". " + lastName;
-	}
+	
 }
-
 
 
 
