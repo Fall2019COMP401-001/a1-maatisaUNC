@@ -28,6 +28,7 @@ public class A1Adept {
 			// Cycles through depending on number of items
 			for (int numOfItems = 0; numOfItems < items; numOfItems++) {
 				int theNumOfItems = scan.nextInt();
+				
 				String nameOfItem = scan.next();
 				double theCostOfItem = scan.nextDouble();
 				totalCost += theNumOfItems * theCostOfItem; 
@@ -49,7 +50,7 @@ public class A1Adept {
 	 * Preconditions: Must provide 3 input values which are integers
 	 */
 	static void print(String firstName, String lastName, double totalCost) {
-		answer += "\n" + customerName(firstName, lastName) + ": " + totalCost;
+		answer += "\n" + customerName(firstName, lastName) + ":  " + totalCost;
 	}
 	/* customerName 
 	 * Prints the customers name with the first name 
@@ -65,11 +66,6 @@ public class A1Adept {
 		return String.valueOf(firstName.charAt(0)).toUpperCase() + ". " + lastName;
 	}
 }
-
-
-
-
-
 
 
 
