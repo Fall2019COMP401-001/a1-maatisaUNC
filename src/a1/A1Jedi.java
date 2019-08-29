@@ -36,9 +36,11 @@ public class A1Jedi {
 		for (int i = 0; i < customerInfo.length; i++) {
 			customerInfo[i] = 0;
 		}
+		
 		// An integer indicating the number of customers
 		int total_Customers = scan.nextInt();
 		for (int i = 0; i < total_Customers; i++) {
+			String allTheFood = "";
 			// Gets the first and last name
 			String firstName = scan.next();
 			String lastName  = scan.next();
@@ -50,10 +52,13 @@ public class A1Jedi {
 				String theFood = scan.next();
 				for (int k = 0; k < foodInfo.length; k++) {
 					if (theFood.contentEquals(foodInfo[k])) {
-						customerInfo[k] += 1;
 						totalFoodInfo[k] += howMany;
 					}
+					if (theFood.contentEquals(foodInfo[k]) && !(allTheFood.contains(theFood))) {
+						customerInfo[k] += 1;
+					}
 				}
+				allTheFood += theFood + " ";
 			}
 		}
 		// Prints out all the necessary output
@@ -62,8 +67,7 @@ public class A1Jedi {
 			if (customerInfo[i] == 0) {
 				System.out.println("No customers bought " + foodInfo[i]);
 			} else {
-				System.out.println(customerInfo[i] + " customers bought " + totalFoodInfo[i]
-						+ " " + foodInfo[i]);
+				System.out.println(customerInfo[i] + " customers bought " + totalFoodInfo[i] + " " + foodInfo[i]);
 			}
 		}
 		scan.close();
